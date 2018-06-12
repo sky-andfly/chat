@@ -1,0 +1,35 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "client.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TEditPort *EditPort;
+//---------------------------------------------------------------------------
+__fastcall TEditPort::TEditPort(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TEditPort::Button1Click(TObject *Sender)
+{
+ClientSocket1->Port = EditPort->Text.ToInt(); //Задаем клиенту порт
+ClientSocket1->Host = EditHost->Text; //Задаем клиенту хост
+ClientSocket1->Active = true; //Включаем клиента
+
+}
+//---------------------------------------------------------------------------
+void __fastcall TEditPort::Button2Click(TObject *Sender)
+{
+ClientSocket1->Socket->SendText(EditName->Text + ": " + EditMessage->Text);
+}
+//---------------------------------------------------------------------------
+void __fastcall TEditPort::ClientSocket1Read(TObject *Sender, TCustomWinSocket *Socket)
+
+{
+MemoMessages->Lines->Add(Socket->ReceiveText());
+}
+//---------------------------------------------------------------------------

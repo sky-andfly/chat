@@ -1,0 +1,59 @@
+object main: Tmain
+  Left = 0
+  Top = 0
+  Caption = 'Server'
+  ClientHeight = 314
+  ClientWidth = 447
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 32
+    Top = 24
+    Width = 95
+    Height = 21
+    Caption = 'Connection: '
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Times New Roman'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Edit1: TEdit
+    Left = 133
+    Top = 21
+    Width = 124
+    Height = 24
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Times New Roman'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    Text = '90'
+  end
+  object Memo1: TMemo
+    Left = 32
+    Top = 64
+    Width = 337
+    Height = 161
+    Lines.Strings = (
+      'Memo1')
+    TabOrder = 1
+  end
+  object ServerSocket1: TServerSocket
+    Active = False
+    Port = 0
+    ServerType = stNonBlocking
+    Left = 400
+    Top = 32
+  end
+end

@@ -1,0 +1,46 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "server.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+Tmain *main;
+AnsiString Message;
+//---------------------------------------------------------------------------
+__fastcall Tmain::Tmain(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall Tmain::Button2Click(TObject *Sender)
+{
+ServerSocket1->Port = EditPort->Text.ToInt(); //передаем порт в сервер сокет
+ServerSocket1->Active = true; //Включаем сервер
+
+}
+//---------------------------------------------------------------------------
+void __fastcall Messages( Message){
+  MemoMessages->Lines->Add(Message); //Вывод сообщения на экран
+  for(int i = 0; i < ServerSocket1->Socket->ActiveConnections; i++) //заганяем цикл перебора всех подключенных
+  {
+	ServerSocket1->Socket->Connections[i]->SendText(Message); //Рассылка сообщений
+  }
+
+
+}
+void __fastcall Tmain::ServerSocket1ClientRead(TObject *Sender, TCustomWinSocket *Socket)
+
+{
+Messages(Socket->ReceiveText());
+}
+//---------------------------------------------------------------------------
+
+void __fastcall Tmain::FormClose(TObject *Sender, TCloseAction &Action)
+{
+ServerSocket1->Active = false;
+}
+//---------------------------------------------------------------------------
+
